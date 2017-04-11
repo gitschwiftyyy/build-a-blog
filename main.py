@@ -12,8 +12,15 @@ class Post(db.Model):
   content = db.TextProperty(required = True)
   created = db.DateTimeProperty(auto_now_add = True)
 
-class MainPage(webapp2.RequestHandler):
+class Handler(webapp2.RequestHandler):
+  
+  def renderError(self, error_code):
+      self.error(error_code)
+      self.response.write('Nice job, you broke it. Try it again.')
+
+class Index(Handler):
     def get(self):
+      posts = db.GqlQuery('SELECT * FROM Post ORDER BY created DESC LIMIT 5')
         
 
 
