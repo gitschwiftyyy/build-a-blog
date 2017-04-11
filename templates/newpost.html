@@ -3,7 +3,7 @@
 {% block content %}
 <h2>New Post</h2>
 
-<form action='/newpost' method='post'>
+<form action='/blog/newpost' method='post'>
   <label>
     Title <br>
     <input type='text' name='post-title'/>
@@ -13,6 +13,7 @@
     <textarea name='post-content' cols='50' rows='10'></textarea>
   </label><br>
   <input type='submit' value='Publish!'/>
+  
 </form>
 <p class='error_message'>{{error if error else ""}}</p>
 {% endblock %}
