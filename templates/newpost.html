@@ -1,0 +1,17 @@
+{% extends "base.html" $}
+
+{% block content %}
+<h2>New Post</h2>
+
+<form action='/newpost' method='post'>
+  <label>
+    Title: <br>
+    <input type='text' name='post-title'/>
+  </label>
+  <label>
+    What would you like to say?: <br>
+    <textarea name='post-content'></textarea>
+  </label>
+  <input type='submit' value='Publish!'/>
+</form>
+{% endblock %}
