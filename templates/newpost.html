@@ -1,17 +1,17 @@
-{% extends "base.html" $}
+{% extends "base.html" %}
 
 {% block content %}
 <h2>New Post</h2>
 
 <form action='/newpost' method='post'>
   <label>
-    Title: <br>
+    Title <br>
     <input type='text' name='post-title'/>
-  </label>
+  </label><br><br>
   <label>
-    What would you like to say?: <br>
-    <textarea name='post-content'></textarea>
-  </label>
+    What would you like to say? <br>
+    <textarea name='post-content' cols='50' rows='10'></textarea>
+  </label><br>
   <input type='submit' value='Publish!'/>
 </form>
 <p class='error_message'>{{error if error else ""}}</p>

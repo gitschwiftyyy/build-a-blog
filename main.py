@@ -21,9 +21,35 @@ class Handler(webapp2.RequestHandler):
 class Index(Handler):
     def get(self):
       posts = db.GqlQuery('SELECT * FROM Post ORDER BY created DESC LIMIT 5')
-        
+      
+      t = jinja_env.get_template("mainpage.html")
+      content = t.render(posts = posts)
+      self.response.write(content)
+    
+    
+      
 
-
+class NewPost(Handler):
+  def get(self):
+    error = ""
+    t = jinja_env.get_template('newpost.html')
+    content = t.render(error = error)
+    self.response.write(content)
+  
+  def post(self):
+    post_title = self.request.get('post-title')
+    post_content = self.request.get('post-content')
+    post_title_esc = cgi.escape(post_title)
+    post_content_esc = cgi.escape(post_content)
+    
+    post = Post(title = post_title_esc, content = post_content_esc)
+    post.put()
+    
+    t = jinja_env.get_template('post-confirmation.html')
+    content = t.render()
+    self.response.write(content)
+    
+    
 app = webapp2.WSGIApplication([
-    ('/', MainPage),
+    ('/', Index), ('/newpost', NewPost)
 ], debug=True)

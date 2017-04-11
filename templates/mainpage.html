@@ -2,14 +2,16 @@
 
 {% block content %}
 
+<a href='/newpost' class='newpost'>New Post</a>
 <ul>
   {% for post in posts %}
   <li>
+    <hr>
     <h4>{{post.title}}</h4>
     <p>
       {{post.content}}
     </p>
-    <hr>
+    
   </li>
   {% endfor %}
 </ul>
