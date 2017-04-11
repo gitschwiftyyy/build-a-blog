@@ -12,6 +12,7 @@ class Post(db.Model):
   title = db.StringProperty(required = True)
   content = db.TextProperty(required = True)
   created = db.DateTimeProperty(auto_now_add = True)
+  date = db.DateProperty(auto_now_add = True)
 
 class Handler(webapp2.RequestHandler):
   
@@ -22,7 +23,6 @@ class Handler(webapp2.RequestHandler):
 class Index(Handler):
     def get(self):
       posts = db.GqlQuery('SELECT * FROM Post ORDER BY created DESC LIMIT 5')
-      
       t = jinja_env.get_template("mainpage.html")
       content = t.render(posts = posts)
       self.response.write(content)
@@ -68,11 +68,7 @@ class ViewPost(Handler):
 class Redirect(Handler):
   def get(self):
     self.redirect('/blog')
-# class Confirmation(Handler):
-#   def get(self):
-#     t = jinja_env.get_template('post-confirmation.html')
-#     content = t.render()
-#     self.response.write(content)
+
 
 app = webapp2.WSGIApplication([
     ('/blog', Index), ('/blog/newpost', NewPost), webapp2.Route('/blog/<id:\d+>', ViewPost), ('/', Redirect)
